@@ -1,5 +1,5 @@
 <template>
-  <nav v-if="selectedPlayer" class="bg-gray-800 shadow-lg">
+  <nav v-if="playerStore.selectedPlayer" class="bg-gray-800 shadow-lg">
     <div class="max-w-6xl mx-auto px-6 py-4">
       <div class="flex justify-between items-center">
         <div class="flex items-center gap-8">
@@ -10,9 +10,9 @@
         <div class="flex items-center gap-4">
           <div class="flex items-center gap-2">
             <div class="w-2 h-2 bg-green-400 rounded-full"></div>
-            <span class="text-gray-300">{{ selectedPlayer.displayName }}</span>
+            <span class="text-gray-300">{{ playerStore.selectedPlayer.displayName }}</span>
           </div>
-          <button @click="changePlayer" class="text-sm bg-gray-700 hover:bg-gray-600 px-3 py-1 rounded transition-colors">
+          <button @click="playerStore.changePlayer" class="text-sm bg-gray-700 hover:bg-gray-600 px-3 py-1 rounded transition-colors">
             Changer
           </button>
         </div>
@@ -22,19 +22,12 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import { useRouter } from 'vue-router'
+import { usePlayerStore } from '@/stores/player'
+import { onMounted } from 'vue'
 
-const router = useRouter()
+const playerStore = usePlayerStore()
 
-// Utiliser computed pour réagir aux changements du localStorage
-const selectedPlayer = computed(() => {
-  const raw = localStorage.getItem('selectedPlayer')
-  return raw ? JSON.parse(raw) : null
+onMounted(() => {
+  playerStore.loadPlayer()
 })
-
-function changePlayer() {
-  localStorage.removeItem('selectedPlayer')
-  router.push('/')
-}
 </script>
