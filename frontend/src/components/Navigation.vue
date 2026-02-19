@@ -22,19 +22,19 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
-const selectedPlayer = ref('')
+
+// Utiliser computed pour réagir aux changements du localStorage
+const selectedPlayer = computed(() => {
+  const raw = localStorage.getItem('selectedPlayer')
+  return raw ? JSON.parse(raw) : null
+})
 
 function changePlayer() {
   localStorage.removeItem('selectedPlayer')
   router.push('/')
 }
-
-onMounted(() => {
-  const raw = localStorage.getItem('selectedPlayer')
-  selectedPlayer.value = raw ? JSON.parse(raw) : null
-})
 </script>
