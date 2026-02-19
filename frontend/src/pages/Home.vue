@@ -25,8 +25,10 @@
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { lanApi } from '@/stores/api'
+import { usePlayerStore } from '@/stores/player'
 
 const router = useRouter()
+const playerStore = usePlayerStore()
 const players = ref([])
 const loading = ref(false)
 const error = ref('')
@@ -44,9 +46,11 @@ async function loadPlayers() {
 }
 
 function selectPlayer(player) {
-  localStorage.setItem('selectedPlayer', JSON.stringify(player))
+  playerStore.setPlayer(player)
   router.push('/vote')
 }
 
-onMounted(loadPlayers)
+onMounted(() => {
+  loadPlayers()
+})
 </script>
