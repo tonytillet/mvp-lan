@@ -4,9 +4,9 @@
       <div class="max-w-6xl mx-auto px-6 py-4">
         <div class="flex justify-between items-center">
           <div class="flex items-center gap-8">
-            <router-link to="/recap" class="text-blue-400 hover:text-blue-300 font-semibold transition-colors">Accueil</router-link>
-            <router-link to="/vote" class="text-gray-300 hover:text-white transition-colors">Vote</router-link>
-            <router-link to="/history" class="text-gray-300 hover:text-white transition-colors">Historique</router-link>
+            <router-link to="/recap" class="text-blue-400 hover:text-blue-300 font-semibold transition-colors" :class="{ 'text-blue-300': $route.path === '/recap' }">Accueil</router-link>
+            <router-link to="/vote" class="text-gray-300 hover:text-white transition-colors" :class="{ 'text-white': $route.path === '/vote' }">Vote</router-link>
+            <router-link to="/history" class="text-gray-300 hover:text-white transition-colors" :class="{ 'text-white': $route.path === '/history' }">Historique</router-link>
           </div>
           <div class="flex items-center gap-4">
             <div class="flex items-center gap-2">
